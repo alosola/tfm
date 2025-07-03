@@ -1,8 +1,12 @@
 Notas:
-- Need to force polynomial fit adjust to have a positive tilt always? otherwise the spectrum folds in on itself
-- Should all stokes parameters be adjusted with the same polynomial?
+- Need to force polynomial fit adjust to have a positive tilt always? otherwise the spectrum folds in on itself -> email sent
+- Should all stokes parameters be adjusted with the same polynomial? -> email sent
 - Review normalisation, it's not done correctly.
 - Make gifs of evolution over wavelength
+- Convert to working with dictionary object
+  - Each stokes parameter has original data, normalized, mean, etc.
+
+
 
 ----------------------------
 Notas reunión 01/07/2025
