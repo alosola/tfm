@@ -1,12 +1,17 @@
-Notas:
-- Need to force polynomial fit adjust to have a positive tilt always? otherwise the spectrum folds in on itself -> email sent
-- Should all stokes parameters be adjusted with the same polynomial? -> email sent
-- Review normalisation, it's not done correctly.
+Notes:
 - Make gifs of evolution over wavelength
-- Convert to working with dictionary object
-  - Each stokes parameter has original data, normalized, mean, etc.
+- Are the ejes transpuestos? --> wait for answer from Sara
+- Make plots with arcseconds on axes
+- Make polarization functions
 
 
+For calibration: 
+Selected region of the image which does not have total polarization, this indicates there is not a very active magnetic field.
+
+Normalization:
+With quiet sun it works well for I, but not for the other variabes:
+--> Have applied usual normalization formula, data_n = (data - data_min) / data_range
+--> TODO: check this is OK
 
 ----------------------------
 Notas reunión 01/07/2025
