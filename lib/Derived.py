@@ -9,6 +9,8 @@
 
 # as well as functions to plot figures
 
+import sys
+sys.path.append('/home/solaa/workspace/tfm')
 
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
@@ -25,17 +27,41 @@ class Derived:
         self.V = stokes_list['V']
 
 
-    def mean_polarization(self):
-        # Calculate mean polarization of datacube
-        self.mp = np.empty(self.I.data.shape)
+    def total_polarization(self):
+        # Calculate total polarization of datacube
+        sum_n = 0
+        sum_d = 0
         for i in range(112):
-            self._mean_polarization_wave(i)
+            sum_n += np.sqrt(self.Q.data[:,:,i]**2 + self.U.data[:,:,i]**2 + self.V.data[:,:,i]**2)
+            sum_d += self.I.data[:,:,i]
+        self.mp = sum_n / sum_d
 
 
-    def _mean_polarization_wave(self, i):
-        # Calculate the mean polarization in a given frame
-        self.mp[:,:,i] = np.sqrt(self.Q.data[:,:,i]**2 + self.U.data[:,:,i]**2 + self.V.data[:,:,i]**2) / self.I.data[:,:,i]
+    def linear_polarization(self):
+        # Calculate linear polarization of datacube (remove V)
+        sum_n = 0
+        sum_d = 0
+        for i in range(112):
+            sum_n += np.sqrt(self.Q.data[:,:,i]**2 + self.U.data[:,:,i]**2)
+            sum_d += self.I.data[:,:,i]
+        self.lp = sum_n / sum_d
+
+
+    def circular_polarization(self):
+        # Calculate circular polarization of datacube (remove Q and U)
+        sum_n = 0
+        sum_d = 0
+        for i in range(112):
+            sum_n += np.sqrt(self.V.data[:,:,i]**2)
+            sum_d += self.I.data[:,:,i]
+        self.cp = sum_n / sum_d
 
     
-    def plot_mean_polarization(self, i):
-        plot_data(self.mp[:,:,i], "Polarization data, for wavelength index " + str(i))
+    def plot_total_polarization(self):
+        return plot_data(self.mp, "Total polarization")
+
+    def plot_linear_polarization(self):
+        return plot_data(self.lp, "Total polarization")
+
+    def plot_circular_polarization(self):
+        return plot_data(self.cp, "Total polarization")
