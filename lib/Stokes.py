@@ -12,7 +12,7 @@
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-from src.plot_data import plot_data
+from functions.plot_data import plot_data
 
 
 class Stokes:
@@ -37,6 +37,7 @@ class Stokes:
         #     print("Error normalizing data, quiet sun not set")
 
         # Normalizing data with value xnormalized = (x - xminimum) / range of x
+        print("Normalizing data for", self.name, "and saving to object")
         self.data_n = (self.data - self.data.min()) / (self.data.max() - self.data.min())
         
 

@@ -13,5 +13,6 @@ def plot_data(data, title):
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(img, cax=cax, label='Number of counts')
+    plt.show()
 
     return fig, ax
