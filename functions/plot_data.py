@@ -13,6 +13,13 @@ def plot_data(data, title):
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(img, cax=cax, label='Number of counts')
+
+    # Make second axis for arcseconds
+    ax2 = ax1.twinx()  # instantiate a second Axes that shares the same x-axis
+    fig.tight_layout()  # otherwise the right y-label is slightly clipped
+
+    # https://www.reddit.com/r/learnpython/comments/o9wgoa/matplotlib_how_to_change_the_numbers_of_the_axes/
+
     plt.show()
 
     return fig, ax
