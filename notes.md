@@ -2,6 +2,7 @@ Notes:
 - Make gifs of evolution over wavelength
 - Are the ejes transpuestos? --> wait for answer from Sara
 - Make plots with arcseconds on axes
+- derivada de datos normalizados?
 
 
 For calibration: 

@@ -49,7 +49,7 @@ print("Opened calibration data file")
 print("List of keys in file:", list(calibdata.files))
 key = list(calibdata.files)
 print("With shape:")
-print("    Wavelength daya (x):           ", calibdata[key[0]].shape)
+print("    Wavelength data (x):           ", calibdata[key[0]].shape)
 print("    Intensity (y):                 ", calibdata[key[0]].shape)
 print("    Continuum (c):                 ", calibdata[key[0]].shape)
 
