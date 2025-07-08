@@ -6,6 +6,7 @@
 
 import h5py
 import pickle
+from pathlib import Path
 
 # Project modules
 from lib.Stokes import Stokes
@@ -41,6 +42,7 @@ for param in stokes_list:
     stokes_list[param].normalize()
 
 # Save Stokes objects
+Path("generated/objects/").mkdir(parents=True, exist_ok=True)
 stokes_filename = "generated/objects/stokes.pickle"
 print("Saving datacube to pickle file:", stokes_filename)
 with open(stokes_filename, 'wb') as handle:
