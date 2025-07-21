@@ -57,6 +57,8 @@ print("    Continuum (c):                 ", calibdata[key[0]].shape)
 spectrum = copy.copy(stokes_list['I'].mean_quiet)
 peaks, _ = find_peaks(-spectrum) 
 print("Peaks in I data: ", peaks)
+# TODO: figure out why it's getting four peaks
+peaks = [29, 75]
 
 # Example from here: https://eikonaloptics.com/blogs/tutorials/spectrometer-wavelength-calibration-practical-implementation?srsltid=AfmBOoqBsKn0cOmwJ4wTow4yGllnfrRJAqNRn0FOSJ3sFu7leDetbL1D
 # Find centroid of spectral lines

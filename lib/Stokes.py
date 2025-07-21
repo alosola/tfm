@@ -19,7 +19,7 @@ from functions.plot_data import plot_data
 class Stokes:
     def __init__(self, name, data):
         self.name = name
-        self.data = data.swapaxes(0,1)
+        self.data = np.flipud(data.swapaxes(0,1))
 
         self.size_x = self.data.shape[0]
         self.size_y = self.data.shape[1]
@@ -157,6 +157,6 @@ class Stokes:
             for j in range(ncols):
                 # print("Image #", str(i*ncols +j), "in spot ", str(i), ", ", str(j))
                 ax[i,j].set_title(self.name + " data, index " + str(i*ncols +j))
-                img = ax[i,j].imshow(self.data[:,:,(i*ncols + j)], cmap='gray', origin='lower')
+                img = ax[i,j].imshow(self.data[:,:,(i*ncols + j)], cmap='gray')
 
         return fig

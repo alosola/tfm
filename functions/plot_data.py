@@ -9,7 +9,7 @@ def plot_data(data, title):
     ax.set_xlabel('X axis (array index)')
     ax.set_ylabel('Y axis (array index)')
     ax.set_title(title)
-    img = ax.imshow(data, cmap='gray', origin='lower')
+    img = ax.imshow(data, cmap='gray')
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(img, cax=cax, label='Number of counts')
