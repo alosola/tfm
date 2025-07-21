@@ -32,8 +32,8 @@ class Derived:
         sum_n = 0
         sum_d = 0
         for i in range(112):
-            sum_n += np.sqrt(self.Q.data[:,:,i]**2 + self.U.data[:,:,i]**2 + self.V.data[:,:,i]**2)
-            sum_d += self.I.data[:,:,i]
+            sum_n += np.sqrt(self.Q.data_normalized[:,:,i]**2 + self.U.data_normalized[:,:,i]**2 + self.V.data_normalized[:,:,i]**2)
+            sum_d += self.I.data_normalized[:,:,i]
         self.mp = sum_n / sum_d
 
 
@@ -42,8 +42,8 @@ class Derived:
         sum_n = 0
         sum_d = 0
         for i in range(112):
-            sum_n += np.sqrt(self.Q.data[:,:,i]**2 + self.U.data[:,:,i]**2)
-            sum_d += self.I.data[:,:,i]
+            sum_n += np.sqrt(self.Q.data_normalized[:,:,i]**2 + self.U.data_normalized[:,:,i]**2)
+            sum_d += self.I.data_normalized[:,:,i]
         self.lp = sum_n / sum_d
 
 
@@ -52,8 +52,8 @@ class Derived:
         sum_n = 0
         sum_d = 0
         for i in range(112):
-            sum_n += np.sqrt(self.V.data[:,:,i]**2)
-            sum_d += self.I.data[:,:,i]
+            sum_n += np.sqrt(self.V.data_normalized[:,:,i]**2)
+            sum_d += self.I.data_normalized[:,:,i]
         self.cp = sum_n / sum_d
 
     
@@ -61,7 +61,7 @@ class Derived:
         return plot_data(self.mp, "Total polarization")
 
     def plot_linear_polarization(self):
-        return plot_data(self.lp, "Total polarization")
+        return plot_data(self.lp, "Linear polarization")
 
     def plot_circular_polarization(self):
-        return plot_data(self.cp, "Total polarization")
+        return plot_data(self.cp, "Circular polarization")

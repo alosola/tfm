@@ -32,7 +32,7 @@ nova = Derived(stokes_list)
 
 # Calculate total polarization
 print("Calculaing total polarization")
-nova.total_polarization()
+nova.total_polarization() # the reference for this is currently Ana's slide about HMI - find an article
 fig, _ = nova.plot_total_polarization()
 
 

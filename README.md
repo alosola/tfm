@@ -6,6 +6,7 @@ processing is extracted to a separate file. These generate objects which are nee
 the following files. They should be run in this order:
 1. init_data.py
 2. calibration.py
+3. polarization.py
 
 
 # Git usage notes

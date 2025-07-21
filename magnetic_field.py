@@ -20,18 +20,18 @@ from functions.plot_data import plot_data
 stokes_filename = "generated/objects/stokes.pickle"
 my_file = Path(stokes_filename)
 if not my_file.is_file():
-    print("Stokes object does not exists (", stokes_filename,"), please run file init_data.py first")
+    print("Stokes object does not exist (", stokes_filename,"), please run file init_data.py first")
 
 # Check that the Nova object file exists
 nova_filename = "generated/objects/nova.pickle"
-my_file = Path(stokes_filenova_filenamename)
+my_file = Path(nova_filename)
 if not my_file.is_file():
-    print("Stokes object does not exists (", nova_filename,"), please run file init_data.py first")
+    print("Nova object does not exist (", nova_filename,"), please run file init_data.py first")
 
 # Load the objects from the files
 print("Loading Stokes data from file", stokes_filename)
 stokes_list = pickle.load(open(stokes_filename, "rb"))
-print("Loading Stokes data from file", nova_filename)
+print("Loading Nova data from file", nova_filename)
 nova = pickle.load(open(nova_filename, "rb"))
 
 
