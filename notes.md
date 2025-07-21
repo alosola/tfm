@@ -1,9 +1,12 @@
-Notes:
+# TODOS:
 - Make gifs of evolution over wavelength
-- Are the ejes transpuestos? --> wait for answer from Sara
 - Make plots with arcseconds on axes
-- derivada de datos normalizados?
+- Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
+- revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).
+- el perfil de I en absorción (lo que debes tener mayoritariamente) es esencialmente una función que decrece llega a un mínimo y vuelve a crecer, ¿qué aspecto esperas que tenga su primera derivada?, ¿y su segunda derivada?
 
+
+# Notes on work
 
 For calibration: 
 Selected region of the image which does not have total polarization, this indicates there is not a very active magnetic field.
@@ -14,7 +17,7 @@ With quiet sun it works well for I, but not for the other variabes:
 --> TODO: check this is OK
 
 ----------------------------
-Notas reunión 01/07/2025
+## Notas reunión 01/07/2025
 
 Para calibrar:
 1. Seleccionamos una región de sol en calma, que no presente el efecto Doppler y que no presente un campo magnético fuerte.
@@ -29,13 +32,13 @@ Luego, miraremos la polarización circular en V (? confirmar esto con las transp
 
 Campo magnético: utilizar las ecuaciones más sencillas para el campo debil (Ana lo enviará por correo). Comparar con bibliografía.
 
-NOTAS TEORÍA:
+## NOTAS TEORÍA:
 Poros: concentración magnética fuerte, los puntos oscuros sin penumbra.
 I, V, U son independientes. Q incluye parte de I. -> me van a enviar artículo.
 
 
-NOTAS INSTRUMENTALES:
-La escala X e Y nos permite determinar el modo del Spectropolarimeter, en este caso es el modo normal.
+## NOTAS INSTRUMENTALES:
+La escala X e Y nos permite determinar el modo del Spectropolarimeter, en este caso es el modo normal.  --> this could also have been a clue I had the axes wrong
 --> TODO: Plotear con segundos de arco en los ejes, en lugar de pixeles. Ojo que posiblemente no sean pixeles cuadrados.
 Los datos proporcionados son de "nivel 1", es decir están listos para usar. Han sido procesados por el equipo (modulación polarimetrica, se han juntado las longitudes de arco, etc.) y por Sara (ha procesado todos los FITS individuales para generar este cubo).
 En los 83 minutos que tarda en hacerse la foto, asumimos que no hay cambios grandes en la estructura. Suelen ser cambios más pequeños en filamentos o puentes de luz.
