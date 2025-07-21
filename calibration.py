@@ -27,10 +27,10 @@ print("Loading Stokes data from file", stokes_filename)
 stokes_list = pickle.load(open(stokes_filename, "rb"))
 
 # Select region of quiet sun for calibration intensity calculation
-xmin = 0
-xmax = 180
-ymin = 450
-ymax = 605
+xmin = 480
+xmax = 605
+ymin = 0
+ymax = 180
 xwidth = xmax - xmin
 ywidth = ymax - ymin
 # We want to select a region with little total polarization, since this implies a low magnetic field -> quiet sun

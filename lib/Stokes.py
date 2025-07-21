@@ -19,7 +19,7 @@ from functions.plot_data import plot_data
 class Stokes:
     def __init__(self, name, data):
         self.name = name
-        self.data = data
+        self.data = data.swapaxes(0,1)
 
         self.size_x = self.data.shape[0]
         self.size_y = self.data.shape[1]
