@@ -4,6 +4,7 @@
 - Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
 - revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).
 - el perfil de I en absorción (lo que debes tener mayoritariamente) es esencialmente una función que decrece llega a un mínimo y vuelve a crecer, ¿qué aspecto esperas que tenga su primera derivada?, ¿y su segunda derivada?
+- Make polarization calculation with normalized data--this currently doesn't provide a clear plot
 
 
 # Notes on work

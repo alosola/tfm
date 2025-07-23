@@ -32,8 +32,8 @@ class Derived:
         sum_n = 0
         sum_d = 0
         for i in range(112):
-            sum_n += np.sqrt(self.Q.data_normalized[:,:,i]**2 + self.U.data_normalized[:,:,i]**2 + self.V.data_normalized[:,:,i]**2)
-            sum_d += self.I.data_normalized[:,:,i]
+            sum_n += np.sqrt(self.Q.data[:,:,i]**2 + self.U.data[:,:,i]**2 + self.V.data[:,:,i]**2)
+            sum_d += self.I.data[:,:,i]
         self.mp = sum_n / sum_d
 
 
@@ -42,8 +42,8 @@ class Derived:
         sum_n = 0
         sum_d = 0
         for i in range(112):
-            sum_n += np.sqrt(self.Q.data_normalized[:,:,i]**2 + self.U.data_normalized[:,:,i]**2)
-            sum_d += self.I.data_normalized[:,:,i]
+            sum_n += np.sqrt(self.Q.data[:,:,i]**2 + self.U.data[:,:,i]**2)
+            sum_d += self.I.data[:,:,i]
         self.lp = sum_n / sum_d
 
 
@@ -52,8 +52,8 @@ class Derived:
         sum_n = 0
         sum_d = 0
         for i in range(112):
-            sum_n += np.sqrt(self.V.data_normalized[:,:,i]**2)
-            sum_d += self.I.data_normalized[:,:,i]
+            sum_n += np.sqrt(self.V.data[:,:,i]**2)
+            sum_d += self.I.data[:,:,i]
         self.cp = sum_n / sum_d
 
     
