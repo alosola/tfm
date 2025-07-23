@@ -1,10 +1,14 @@
 # TODOS:
+- Make polarization calculation with normalized data--this currently doesn't provide a clear plot
+- Vemos si vemos estructuras convectivas en la umbra en el contínuo de I (fuera de la línea espectral)
+- ver perfiles de cambio en distintas zonas: coger 6 puntos (dos de sol en calma (con y sin polarización), 2 de penumbra, 2 de umbra). Comparación de valores.
+- Comparar imagenes de I en distintas zonas de la línea espectral--ver así distintas capas de la atmosfera
+
 - Make gifs of evolution over wavelength
 - Make plots with arcseconds on axes
 - Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
 - revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).
 - el perfil de I en absorción (lo que debes tener mayoritariamente) es esencialmente una función que decrece llega a un mínimo y vuelve a crecer, ¿qué aspecto esperas que tenga su primera derivada?, ¿y su segunda derivada?
-- Make polarization calculation with normalized data--this currently doesn't provide a clear plot
 
 
 # Notes on work
@@ -16,6 +20,21 @@ Normalization:
 With quiet sun it works well for I, but not for the other variabes:
 --> Have applied usual normalization formula, data_n = (data - data_min) / data_range
 --> TODO: check this is OK
+
+----------------------------
+## Notas reunión 23/07/2025
+Líneas brillantes que aparecen en la umbra el en mapa de polarización circular--estructuras convectivas? Porqué hay zonas oscuras alrededor? Tiene que ver con la línea espectral? Aparecen en algúnas de las imágenes de I?
+
+Spot (superior derecho): se ve en jhelioviewer que es una porción de la umbra que se separa y pasa por la penumbra para salir de la mancha. También se ve que antes la umbra estaba dividida en 2 por un punente de luz.
+
+Puntos de polarización circular fuera de la mancha: aparecerán en el magnetograma (campo longitudinal). Puede ser por el calentamiento coronal, por la supergranulación, o por la formación de campos magnéticos en forma de burbuja... vemos que aparecen algunos como pequeños poros en el I del contínuo, otros serán puntos brillantes en I pero que requieren mas resolución angular. Este efecto es disperso, pero no despreciable.
+Cerca de la mancha se podría deber a céldas superconvectivas.
+
+Al acercarnos al núcleo de la línea espectral, subimos en la fotosfera, porque esta es más opaca.
+
+Un gránulo es una burbuja de materia caliente que sube. Mientras mas sube, mas densa, más opaca--aparece como I menor. Ocurre algo parecido con los núcleos de lso filamentos, que son formados por apilamiento del plasma.
+
+
 
 ----------------------------
 ## Notas reunión 01/07/2025
