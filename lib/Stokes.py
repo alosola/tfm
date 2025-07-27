@@ -119,17 +119,17 @@ class Stokes:
         if hasattr(self, 'wave_array'):
             if (wave_to_plot < 112):
                 # Assume you are selecting a frame index
-                title = self.name + " data, " + title_tag + ", for wavelength " + str(round(self.wave_array[wave_to_plot],3)) + " in frame " + str(wave_to_plot)
+                title = self.name + " data, " + title_tag + " for wavelength " + str(round(self.wave_array[wave_to_plot],3)) + " in frame " + str(wave_to_plot)
                 fig, _ = plot_data(data[:,:,wave_to_plot], title)
             else:
                 # Assume you are selecting the wavelength
                 index = min(range(len(self.wave_array)), key=lambda i: abs(self.wave_array[i]-wave_to_plot))
-                title = self.name + " data, " + title_tag + ", for wavelength " + str(round(self.wave_array[index],3)) + " in frame " + str(index)
+                title = self.name + " data, " + title_tag + " for wavelength " + str(round(self.wave_array[index],3)) + " in frame " + str(index)
                 fig, _ = plot_data(data[:,:,index], title)
         else:
             try:
                 # If the wavelength hasn't been calibrated, you are forced to select only the index
-                title = self.name + " data, " + title_tag + ", for wavelength index " + str(wave_to_plot)
+                title = self.name + " data, " + title_tag + " for wavelength index " + str(wave_to_plot)
                 fig, _ = plot_data(data[:,:,wave_to_plot], title)
             except:
                 print("Wrong index specified, or wavelength not calibrated")
