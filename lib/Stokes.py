@@ -34,16 +34,22 @@ class Stokes:
 
         
     def normalize(self):
-        # # Normalize data by dividing by the "quiet sun" value at each wavelength
+        # Normalize data by dividing by the "quiet sun" value at each wavelength
         # if hasattr(self, 'mean_quiet'):
-        #     print("Normalizing", self.name, "data with quiet sun profile")
-        #     self.data_n = self.data / self.mean_quiet[0]
+        #     print("Normalizing", self.name, "data with quiet sun profile", self.mean_quiet.mean())
+        #     self.data_n = (self.data + np.abs(self.data.min())) / (self.mean_quiet.mean() + np.abs(self.data.min()))
+        # if hasattr(self, 'mean_quiet'):
+        #     print("Normalizing", self.name, "data with Intensity quiet sun profile", 9326.845)
+        #     self.data_n = (self.data + np.abs(self.data.min())) / (9326.845 + np.abs(self.data.min()))
         # else:
-        #     print("Error normalizing data, quiet sun not set")
+        #     # Normalizing data with value xnormalized = (x - xminimum) / range of x
+        #     print("Normalizing data for", self.name, "and saving to object")
+        #     self.data_n = (self.data - self.data.min()) / (self.data.max() - self.data.min())
 
         # Normalizing data with value xnormalized = (x - xminimum) / range of x
         print("Normalizing data for", self.name, "and saving to object")
         self.data_n = (self.data - self.data.min()) / (self.data.max() - self.data.min())
+
         
 
     def mean_quiet_region(self, xmin, xmax, ymin, ymax):

@@ -57,11 +57,11 @@ class Derived:
         self.cp = sum_n / sum_d
 
     
-    def plot_total_polarization(self):
-        return plot_data(self.mp, "Total polarization")
+    def plot_total_polarization(self, scale=None):
+        return plot_data(self.mp, "Total polarization", scale=scale)
 
-    def plot_linear_polarization(self):
-        return plot_data(self.lp, "Linear polarization")
+    def plot_linear_polarization(self, scale=None):
+        return plot_data(self.lp, "Linear polarization", scale=scale)
 
-    def plot_circular_polarization(self):
-        return plot_data(self.cp, "Circular polarization")
+    def plot_circular_polarization(self, scale=None):
+        return plot_data(self.cp, "Circular polarization", scale=scale)

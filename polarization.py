@@ -33,21 +33,20 @@ nova = Derived(stokes_list)
 # Calculate total polarization
 print("Calculaing total polarization")
 nova.total_polarization() # the reference for this is currently Ana's slide about HMI - find an article
-fig, _ = nova.plot_total_polarization()
-
+# fig, _ = nova.plot_total_polarization(scale=[0, 1])
 
 # Calculate linear polarization
 print("Calculaing linear polarization")
 nova.linear_polarization()
-fig, _ = nova.plot_linear_polarization()
+# fig, _ = nova.plot_linear_polarization()
 
 # Calculate circular polarization
 print("Calculaing circular polarization")
 nova.circular_polarization()
-fig, _ = nova.plot_circular_polarization()
+# fig, _ = nova.plot_circular_polarization()
 
-# Save updated Stokes objects
+# Save updated objects
 derived_filename = "generated/objects/derived.pickle"
-print("Saving datacube to pickle file:", stokes_filename)
+print("Saving datacube to pickle file:", derived_filename)
 with open(derived_filename, 'wb') as handle:
     pickle.dump(nova, handle, protocol=pickle.HIGHEST_PROTOCOL)

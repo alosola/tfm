@@ -3,16 +3,22 @@
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-def plot_data(data, title):
+def plot_data(data, title, scale=None, norm=None):
     # Plot one frame of data
     fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(8, 8))
     ax.set_xlabel('X axis (array index)')
     ax.set_ylabel('Y axis (array index)')
     ax.set_title(title)
-    img = ax.imshow(data, cmap='gray')
+
+    if (scale==None):
+        # If no scale provided, use default
+        img = ax.imshow(data, cmap='gray', norm=norm)
+    else:
+        img = ax.imshow(data, cmap='gray', vmin = scale[0], vmax = scale[1], norm=norm)
+        
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(img, cax=cax, label='Number of counts')
     plt.show()
 
-    return fig, ax
+    return fig, img
