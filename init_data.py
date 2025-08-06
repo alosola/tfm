@@ -37,10 +37,6 @@ for stokes in stokes_list:
     print(stokes, 'shape:', stokes_list[stokes].data.shape)
     i = i + 1
 
-# Normalize all datacubes by didiving by the wavelength
-for param in stokes_list:
-    stokes_list[param].normalize()
-
 # Save Stokes objects
 Path("generated/objects/").mkdir(parents=True, exist_ok=True)
 stokes_filename = "generated/objects/stokes.pickle"

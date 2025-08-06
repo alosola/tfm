@@ -39,6 +39,13 @@ ywidth = ymax - ymin
 for param in stokes_list:
     stokes_list[param].mean_quiet_region(xmin, xmax, ymin, ymax)
 
+# Calculate I continuum value by averaging the first 5 values of the quiet sun region
+I_cont = stokes_list['I'].mean_quiet[:5].mean()
+
+# Normalize all datacubes by didiving by the wavelength
+for param in stokes_list:
+    stokes_list[param].normalize(I_cont)
+
 # Open calibration data
 calibfile = 'data/fts_calibration.npz'
 print("Reading calibration data file", calibfile)
