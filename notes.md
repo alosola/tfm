@@ -17,9 +17,27 @@ For calibration:
 Selected region of the image which does not have total polarization, this indicates there is not a very active magnetic field.
 
 Normalization:
-With quiet sun it works well for I, but not for the other variabes:
---> Have applied usual normalization formula, data_n = (data - data_min) / data_range
---> TODO: check this is OK
+With mean intensity of quiet sun region continuum (average of first 5 wavelegth measurements)
+
+
+----------------------------
+## Notas reunión 06/08/2025
+Q, U, V reflect the behaviour of the rate of change--therefore they are highest contrast when the rate of change of I is highest, about halfway down the spectral line.
+V is related to the first derivative, and U to the second derivative.
+
+The quiet sun can present magnetization regions, due to polarization from scattering or other sources that are outside the scope of this work. This work is focoused on the Zeeman effect, which dominates the polarisation around the sunspot.
+
+Inverse lobes in the profile graphs are due to inverse magnetic fields (probable indicates a change in azimuth, pointing inwards and outwards from sun core). In the Magnetogram (longitudinal) this is represented by white/black spots.
+
+This is related to the unfolding (desdoblamiento) of the spectral line due to the Zeeman effect. This is seen clearly in the umbra, where the lobe change through the core of the spectral line has a small meseta, instead of a sharp inclination. This is representative of a very intense magnetic field. The energy of the three atomic transitions (sigma-, pi, sigma+) is similar, but different enough that three lobes apear in the spectral line.
+
+Negative values in Q, U, V represent magnetic field polarity, be careful not to lose this data.
+
+NIST: database of spectral lines. Possibly find information on the slight dip which can be seen in the umbra in I and V about halfway between the 301 and 302 spectral lines. Find the calibrated wavelength value for this line, and match it to the data in NIST.
+https://www.nist.gov/pml/atomic-spectra-database
+https://physics.nist.gov/cgi-bin/ASD/lines1.pl?spectra=&output_type=0&low_w=6301.4&upp_w=6302.6&unit=0&de=0&plot_out=0&I_scale_type=1&format=0&line_out=0&en_unit=0&output=0&bibrefs=1&page_size=15&show_obs_wl=1&show_calc_wl=1&unc_out=1&order_out=0&max_low_enrg=&show_av=2&max_upp_enrg=&tsb_value=0&min_str=&A_out=0&intens_out=on&max_str=&allowed_out=1&forbid_out=1&min_accur=&min_intens=&conf_out=on&term_out=on&enrg_out=on&J_out=on&g_out=on&submit=Retrieve+Data
+
+
 
 ----------------------------
 ## Notas reunión 23/07/2025
