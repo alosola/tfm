@@ -1,10 +1,5 @@
 # TODOS:
-- Make polarization calculation with normalized data--this currently doesn't provide a clear plot
-- Vemos si vemos estructuras convectivas en la umbra en el contínuo de I (fuera de la línea espectral)
-- ver perfiles de cambio en distintas zonas: coger 6 puntos (dos de sol en calma (con y sin polarización), 2 de penumbra, 2 de umbra). Comparación de valores.
-- Comparar imagenes de I en distintas zonas de la línea espectral--ver así distintas capas de la atmosfera
 
-- Make gifs of evolution over wavelength
 - Make plots with arcseconds on axes
 - Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
 - revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).

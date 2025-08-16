@@ -2,19 +2,10 @@
 
 
 from pathlib import Path
-from scipy.signal import find_peaks
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.patches as patches
-from mpl_toolkits.axes_grid1 import make_axes_locatable
-import h5py
-import copy
 import pickle
 
 # Project modules
-from lib.Stokes import Stokes
 from lib.Derived import Derived
-from functions.plot_data import plot_data
 
 
 # Check that the Stokes object file exists
@@ -33,17 +24,17 @@ nova = Derived(stokes_list)
 # Calculate total polarization
 print("Calculaing total polarization")
 nova.total_polarization() # the reference for this is currently Ana's slide about HMI - find an article
-# fig, _ = nova.plot_total_polarization(scale=[0, 1])
+fig, _ = nova.plot_total_polarization()
 
 # Calculate linear polarization
 print("Calculaing linear polarization")
 nova.linear_polarization()
-# fig, _ = nova.plot_linear_polarization()
+fig, _ = nova.plot_linear_polarization()
 
 # Calculate circular polarization
 print("Calculaing circular polarization")
 nova.circular_polarization()
-# fig, _ = nova.plot_circular_polarization()
+fig, _ = nova.plot_circular_polarization()
 
 # Save updated objects
 derived_filename = "generated/objects/derived.pickle"
