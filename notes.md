@@ -3,8 +3,21 @@
 - Make plots with arcseconds on axes
 - Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
 - revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).
-- el perfil de I en absorción (lo que debes tener mayoritariamente) es esencialmente una función que decrece llega a un mínimo y vuelve a crecer, ¿qué aspecto esperas que tenga su primera derivada?, ¿y su segunda derivada?
 
+# Questions
+- when is it called vertical/longitudinal, or horizontal/transverse? Are they interchangeable?
+- lambda0 is the central wavelength of the spectral line -- which of the two?
+- Equation 3.23 in JH is "valid in the line core", does this apply to our case?
+- quadrant of the chi angle cannot be determined from this equation. However, 
+
+- where do the factors from the magnetic field calculations come from?
+-- f == filling factor
+-- C1 is  4.6686 × 10−13 * lambda0^2 * gbar
+-- C2 is 5.4490 × 10−26 * lambda0^4 * Gbar
+-- gbar denotes the effective Landé factor, calculated using Equation 3.5
+-- Gbar effective Landé factor for linear polarization
+-- lambda0 is the central wavelength of the spectral line
+All values of the constants are according to the 2010 CODATA recommendations and recomputed in units of the CGS metric system (see e.g. http://physics. nist.gov/cuu/Constants/index.html).  (Table A.1)
 
 # Notes on work
 
