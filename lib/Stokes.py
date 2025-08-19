@@ -88,7 +88,7 @@ class Stokes:
 
     def plot_frame(self, wave_to_plot):
         # Plot non-normalized data
-        return self._plot_frame(self.data, "", wave_to_plot)
+        return self._plot_frame(self.data, "", wave_to_plot, colourbar_label='Number of counts')
 
 
     def plot_frame_n(self, wave_to_plot):
@@ -106,24 +106,24 @@ class Stokes:
         return self._plot_frame(self.data_dd, "second derivative", wave_to_plot)
 
 
-    def _plot_frame(self, data, title_tag, wave_to_plot):
+    def _plot_frame(self, data, title_tag, wave_to_plot, colourbar_label=None):
         # Plot a single frame corresponding to a certain wavelength
 
         if hasattr(self, 'wave_array'):
             if (wave_to_plot < 112):
                 # Assume you are selecting a frame index
                 title = self.name + " data, " + title_tag + " for wavelength " + str(round(self.wave_array[wave_to_plot],3)) + " in frame " + str(wave_to_plot)
-                fig, _ = plot_data(data[:,:,wave_to_plot], title)
+                fig, _ = plot_data(data[:,:,wave_to_plot], title, colourbar_label=colourbar_label)
             else:
                 # Assume you are selecting the wavelength
                 index = min(range(len(self.wave_array)), key=lambda i: abs(self.wave_array[i]-wave_to_plot))
                 title = self.name + " data, " + title_tag + " for wavelength " + str(round(self.wave_array[index],3)) + " in frame " + str(index)
-                fig, _ = plot_data(data[:,:,index], title)
+                fig, _ = plot_data(data[:,:,index], title, colourbar_label=colourbar_label)
         else:
             try:
                 # If the wavelength hasn't been calibrated, you are forced to select only the index
                 title = self.name + " data, " + title_tag + " for wavelength index " + str(wave_to_plot)
-                fig, _ = plot_data(data[:,:,wave_to_plot], title)
+                fig, _ = plot_data(data[:,:,wave_to_plot], title, colourbar_label=colourbar_label)
             except:
                 print("Wrong index specified, or wavelength not calibrated")
 
