@@ -3,7 +3,7 @@
 - Make plots with arcseconds on axes
 - Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
 - revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).
-- Representación de datos normaliados -> ya no son número de cuentas
+- Representación de datos normaliados -> ya no son número de cuentas. Add scale label to normalized plots.
 
 # Questions
 - when is it called vertical/longitudinal, or horizontal/transverse? Are they interchangeable?
@@ -11,11 +11,11 @@
 - Equation 3.23 in JH is "valid in the line core", does this apply to our case?
 - quadrant of the chi angle cannot be determined from this equation. However, 
 
-- where do the factors from the magnetic field calculations come from?
--- f == filling factor
+- where do the factors from the magnetic field calculations come from? (Jennerholm Hammar)
+-- f == filling factor, fraction of the magnetic field covering each resolution element
 -- C1 is  4.6686 × 10−13 * lambda0^2 * gbar
 -- C2 is 5.4490 × 10−26 * lambda0^4 * Gbar
--- gbar denotes the effective Landé factor, calculated using Equation 3.5
+-- gbar denotes the effective Landé factor, calculated using Equation 3.5 (Lozitsky)
 -- Gbar effective Landé factor for linear polarization
 -- lambda0 is the central wavelength of the spectral line
 All values of the constants are according to the 2010 CODATA recommendations and recomputed in units of the CGS metric system (see e.g. http://physics. nist.gov/cuu/Constants/index.html).  (Table A.1)
