@@ -3,6 +3,7 @@
 - Make plots with arcseconds on axes
 - Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
 - revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).
+- Representación de datos normaliados -> ya no son número de cuentas
 
 # Questions
 - when is it called vertical/longitudinal, or horizontal/transverse? Are they interchangeable?
