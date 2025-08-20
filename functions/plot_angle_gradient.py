@@ -1,24 +1,21 @@
 # Define B&W plot function
 
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-def plot_data(data, title='', scale=None, norm=None, colourbar_label=None):
-    # Plot one frame of data
+def plot_angle_gradient(data_radians, title=''):
+    # Plot angle with cyclic colormap
     fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(8, 8))
     ax.set_xlabel('X axis (array index)')
     ax.set_ylabel('Y axis (array index)')
     ax.set_title(title)
 
-    if (scale==None):
-        # If no scale provided, use default
-        img = ax.imshow(data, cmap='gray', norm=norm)
-    else:
-        img = ax.imshow(data, cmap='gray', vmin = scale[0], vmax = scale[1], norm=norm)
-        
+    img = ax.imshow(np.rad2deg(data_radians), cmap='twilight')
+
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
-    fig.colorbar(img, cax=cax, label=colourbar_label)
+    fig.colorbar(img, cax=cax, label='Angle [degrees]')
     plt.show()
 
     return fig, ax

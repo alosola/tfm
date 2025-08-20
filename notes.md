@@ -1,9 +1,12 @@
 # TODOS:
 
 - Make plots with arcseconds on axes
-- Improve data plots: surface plots (only for magnetic field?) is there better ways to represent
-- revisa la parte de la aproximación del campo débil (en Jennerholm Hammar por ejemplo).
-- Representación de datos normaliados -> ya no son número de cuentas. Add scale label to normalized plots.
+- Improve data plots:
+- - surface plots for magnetic field
+- - "stream line" style plots for the angles, see Figure 5.2b of Jennerholm Hammar
+- Make calculation of Gbar following Sara's email, fix values in magnetic field calculations
+- Comapre derivatives with numpy.gradient
+- Total magnetic field! is missing
 
 # Questions
 - when is it called vertical/longitudinal, or horizontal/transverse? Are they interchangeable?
@@ -27,6 +30,24 @@ Selected region of the image which does not have total polarization, this indica
 
 Normalization:
 With mean intensity of quiet sun region continuum (average of first 5 wavelegth measurements)
+
+
+----------------------------
+## Notas reunión 20/08/2025
+All data is normalized to the quiet sun intensity value--this is assumed to be the same in all cases. Therefore the resulting magnetic field strength is proportional to the Landé factor--specific to each spectral line.
+
+Filling factor: for each pixel, represents how much of it is magnetic. for example, if a pixel catches part of the penumbra and part of the quiet sun, that pixel is not 100% magnetic--but determining the precise fraction is not trivial. Assume =1 for the whole field for this work.
+
+Derivatives of I can be compared to Q, U (first) and V (second). See notes from last meeting. This is key to the weak field approximation.
+
+Azimuth: can only be determined between +/- 90 degrees (not +/-180) because a single PoV causes degeneration in data--we can't determine the polarity of the vector direction (arrow on vector "stick").
+For sunspots, we know the polarity of the spot and can determine the polarity of all the values in the spot, but not those of the quiet sun (at least not easily).
+
+Next steps:
+- Finish calculations of magnetic field
+- Calculate velocities
+- Compare with images from AIA, chromosphere, different altitudes, evolution, etc.
+- Write!
 
 
 ----------------------------
