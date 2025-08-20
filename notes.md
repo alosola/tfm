@@ -5,7 +5,7 @@
 - - surface plots for magnetic field
 - - "stream line" style plots for the angles, see Figure 5.2b of Jennerholm Hammar
 - Make calculation of Gbar following Sara's email, fix values in magnetic field calculations
-- Comapre derivatives with numpy.gradient
+- Either fix derivatives functions, or remove in favour of numpy gradient
 - Total magnetic field! is missing
 
 # Questions
