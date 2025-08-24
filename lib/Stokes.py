@@ -34,10 +34,10 @@ class Stokes:
 
 
     def normalize(self, I_cont):
-        # Normalizing data by dividing by the "quiet sun" Intensity continuum value 
+        # Normalizing data by dividing by the "quiet sun" Intensity continuum value
         print(f"Normalizing data for {self.name} with I continuum value {I_cont} and saving to object")
         self.data_n = self.data / I_cont
-        
+
 
     def mean_quiet_region(self, xmin, xmax, ymin, ymax):
         # Calculate the mean intensity of the quiet region selected, for each wavelength
@@ -45,45 +45,13 @@ class Stokes:
         self.mean_quiet = self.data[ymin:ymax,xmin:xmax,:].mean(axis=(0,1))
 
 
-    def calc_first_derivative(self):
-        # Calculate first derivative for each point
+    def calc_derivatives(self):
+        print(f'Calculating first and second derivatives of {self.name} data')
+        # Calculate first derivative for each wavelength
+        self.data_d = np.gradient(self.data_n, self.wave_array.ravel(), axis=2)
 
-        # Initialize empty array
-        self.data_d = np.empty(self.data.shape)
-
-        # Cycle through wavelengths
-        self.data_d[:,:,0] = self._forwards_diff(0)
-        self.data_d[:,:,self.size_wave - 1] = self._backwards_diff(self.size_wave - 1)
-        for k in range(self.size_wave - 1):
-            self.data_d[:,:,k] = self._central_diff(k)
-
-    
-    def _forwards_diff(self, wave_index):
-        # Forward differentiation
-        return (self.data_n[:,:,wave_index + 1] - self.data_n[:,:,wave_index]) / (self.wave_array[wave_index + 1] - self.wave_array[wave_index])
-    
-
-    def _backwards_diff(self, wave_index):
-        # Backwards differentiation
-        return (self.data_n[:,:,wave_index] - self.data_n[:,:,wave_index - 1]) / (self.wave_array[wave_index] - self.wave_array[wave_index - 1])
-    
-
-    def _central_diff(self, wave_index):
-        # Central differentiation
-        return (self.data_n[:,:,wave_index + 1] - self.data_n[:,:,wave_index - 1]) / (self.wave_array[wave_index + 1] - self.wave_array[wave_index - 1])
-
-
-    def calc_second_derivative(self):
-        # Calculate first derivative for each point
-
-        # Initialize empty array
-        self.data_dd = np.empty(self.data.shape)
-
-        # Cycle through wavelengths
-        self.data_dd[:,:,0] = (self.data_n[:,:,1] - self.data_n[:,:,0]) / (self.wave_array[1] - self.wave_array[0])
-        self.data_dd[:,:,self.size_wave - 1] = (self.data_n[:,:,self.size_wave - 1] - self.data_n[:,:,self.size_wave - 2]) / (self.wave_array[self.size_wave - 1] - self.wave_array[self.size_wave - 2])
-        for k in range(self.size_wave - 1):
-            self.data_dd[:,:,k] = (self.data_d[:,:,k + 1] - self.data_d[:,:,k - 1]) / (self.wave_array[k + 1] - self.wave_array[k - 1])
+        # Calculate second derivative for each wavelength
+        self.data_dd = np.gradient(self.data_d, self.wave_array.ravel(), axis=2)
 
 
     def plot_frame(self, wave_to_plot):
@@ -99,7 +67,7 @@ class Stokes:
     def plot_frame_d(self, wave_to_plot):
         # Plot derived data
         return self._plot_frame(self.data_d, "first derivative", wave_to_plot)
-    
+
 
     def plot_frame_dd(self, wave_to_plot):
         # Plot second derived data

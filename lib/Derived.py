@@ -17,7 +17,15 @@ from mpl_toolkits.axes_grid1 import make_axes_locatable
 import numpy as np
 
 from functions.plot_data import plot_data
+import pickle
 
+
+class WeakField:
+    def __init__(self):
+        self.Bv = None
+        self.Bt = None
+        self.chi = None
+        self.gamma = None
 
 class Derived:
     def __init__(self, stokes_list):
@@ -56,7 +64,14 @@ class Derived:
             sum_d += self.I.data[:,:,i]
         self.cp = sum_n / sum_d
 
-    
+    def weak_field(self, Bv, Bt, chi, gamma):
+        print(f'Saving weak field approximation to derived object')
+        self.weak = WeakField()
+        self.weak.Bv = Bv
+        self.weak.Bt = Bt
+        self.weak.chi = chi
+        self.weak.gamma = gamma
+
     def plot_total_polarization(self, scale=None):
         return plot_data(self.mp, "Total polarization", scale=scale)
 
@@ -65,3 +80,8 @@ class Derived:
 
     def plot_circular_polarization(self, scale=None):
         return plot_data(self.cp, "Circular polarization", scale=scale)
+
+    def save_pickle(self, filename='generated/objects/derived.pickle'):
+        print("Saving datacube to pickle file:", filename)
+        with open(filename, 'wb') as handle:
+            pickle.dump(self, handle, protocol=pickle.HIGHEST_PROTOCOL)
