@@ -12,7 +12,7 @@
 - when is it called vertical/longitudinal, or horizontal/transverse? Are they interchangeable?
 - lambda0 is the central wavelength of the spectral line -- which of the two?
 - Equation 3.23 in JH is "valid in the line core", does this apply to our case?
-- quadrant of the chi angle cannot be determined from this equation. However, 
+- quadrant of the chi angle cannot be determined from this equation. However,
 
 - where do the factors from the magnetic field calculations come from? (Jennerholm Hammar)
 -- f == filling factor, fraction of the magnetic field covering each resolution element
@@ -21,11 +21,18 @@
 -- gbar denotes the effective Landé factor, calculated using Equation 3.5 (Lozitsky)
 -- Gbar effective Landé factor for linear polarization
 -- lambda0 is the central wavelength of the spectral line
+-- vmic is the mictroturbulent velocity, describing the impact of thermal motions to the line
+-- Tk is the kinetic temperature
+-- kB is the Boltzmann constant = 1.3806488e-16 [erg/K]
+-- M = mass of the atomic element
+-- me = Electron rest mass, 9.10938291e−28 [g]
+-- e0 = Eelectron charge, 4.80320451 × 10−19 [statC]
+-- c = Speed of light in vacuum, 2.99792458 × 108 [m · s−1]
 All values of the constants are according to the 2010 CODATA recommendations and recomputed in units of the CGS metric system (see e.g. http://physics. nist.gov/cuu/Constants/index.html).  (Table A.1)
 
 # Notes on work
 
-For calibration: 
+For calibration:
 Selected region of the image which does not have total polarization, this indicates there is not a very active magnetic field.
 
 Normalization:
@@ -146,7 +153,7 @@ list(data.keys())
 
 esto muestra que hay un array dentro de "data" llamado "stokes". Para ver qué hay dentro de ese array, hacemos:
 
-data['stokes'].shape 
+data['stokes'].shape
 
 El resultado te mostrará que es un array de 4 dimensiones. La primera dimensión es el número de parámetros de Stokes, la segunda es la dimensión espacial en el eje X, la tercera la dimensión espacial en el eje Y y la cuarta el número de longitudes de onda medidas.
 
