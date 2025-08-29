@@ -7,7 +7,7 @@ def load_pickles(stokes_filename="generated/objects/stokes.pickle", derived_file
     my_file = Path(stokes_filename)
     if not my_file.is_file():
         print("Stokes object does not exist (", stokes_filename,"), please run file init_data.py first")
-        stokes = None
+        stokes_list = None
     else:
         # Load the object from the file
         print("Loading Stokes data from file", stokes_filename)
