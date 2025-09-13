@@ -9,10 +9,8 @@
 - Total magnetic field! is missing
 
 # Questions
-- when is it called vertical/longitudinal, or horizontal/transverse? Are they interchangeable?
-- lambda0 is the central wavelength of the spectral line -- which of the two?
 - Equation 3.23 in JH is "valid in the line core", does this apply to our case?
-- quadrant of the chi angle cannot be determined from this equation. However,
+- delta lambda B -> absolute value?
 
 - where do the factors from the magnetic field calculations come from? (Jennerholm Hammar)
 -- f == filling factor, fraction of the magnetic field covering each resolution element
