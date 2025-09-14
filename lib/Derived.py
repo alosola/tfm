@@ -27,6 +27,12 @@ class WeakField:
         self.chi = None
         self.gamma = None
 
+class StrongField:
+    def __init__(self):
+        self.B = None
+        self.chi = None
+        self.gamma = None
+
 class Derived:
     def __init__(self, stokes_list):
         self.I = stokes_list['I']
@@ -71,6 +77,13 @@ class Derived:
         self.weak.Bt = Bt
         self.weak.chi = chi
         self.weak.gamma = gamma
+
+    def strong_field(self, B, chi, gamma):
+        print(f'Saving strong field approximation to derived object')
+        self.strong = StrongField()
+        self.strong.B = B
+        self.strong.chi = chi
+        self.strong.gamma = gamma
 
     def plot_total_polarization(self, scale=None):
         return plot_data(self.mp, "Total polarization", scale=scale)
