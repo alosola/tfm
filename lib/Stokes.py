@@ -46,11 +46,12 @@ class Stokes:
 
 
     def calc_derivatives(self):
-        print(f'Calculating first and second derivatives of {self.name} data')
         # Calculate first derivative for each wavelength
+        print(f'Calculating first derivative of {self.name} data')
         self.data_d = np.gradient(self.data_n, self.wave_array.ravel(), axis=2)
 
         # Calculate second derivative for each wavelength
+        print(f'Calculating second derivative of {self.name} data')
         self.data_dd = np.gradient(self.data_d, self.wave_array.ravel(), axis=2)
 
 
