@@ -19,6 +19,5 @@ def plot_data(data, title='', scale=None, norm=None, colourbar_label=None, colou
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(img, cax=cax, label=colourbar_label)
-    plt.show()
 
     return fig, ax

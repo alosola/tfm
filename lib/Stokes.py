@@ -111,14 +111,21 @@ class Stokes:
 
     def _plot_all_frames(self, data):
         # Plot all frames of data, corresponding to all wavelenths
-        nrows = 14
-        ncols = 8
-        fig, ax = plt.subplots(ncols=ncols, nrows=nrows, figsize=(50, 80), dpi=25) # TODO: fix padding here
+        nrows = 8
+        ncols = 14
+        fig, ax = plt.subplots(ncols=ncols, nrows=nrows, figsize=(10, 7), dpi=25)
+        max_count = np.max(data)
+        min_count = np.min(data)
 
         for i in range(nrows):
             for j in range(ncols):
                 # print("Image #", str(i*ncols +j), "in spot ", str(i), ", ", str(j))
-                ax[i,j].set_title(self.name + " data, index " + str(i*ncols +j))
-                img = ax[i,j].imshow(self.data[:,:,(i*ncols + j)], cmap='gray')
+                # ax[i,j].set_title(self.name + " data, index " + str(i*ncols +j))
+                img = ax[i,j].imshow(self.data[:,:,(i*ncols + j)], cmap='gray', vmin=min_count, vmax=max_count)
+                ax[i,j].get_xaxis().set_visible(False)
+                ax[i,j].get_yaxis().set_visible(False)
+                ax[i,j].spines.values
+
+        fig.tight_layout()
 
         return fig
