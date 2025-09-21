@@ -38,6 +38,12 @@ With mean intensity of quiet sun region continuum (average of first 5 wavelegth 
 
 
 ----------------------------
+## Notas reunión 09/09/2025
+Para cada pixel, si puedo medir la distancia entre lóbulos, entonces aplico SMF. Si no, aplico WMF.
+
+El factor de Landé representa la sensibilidad de la línea espectral al campo magnético.
+
+
 ## Notas reunión 20/08/2025
 All data is normalized to the quiet sun intensity value--this is assumed to be the same in all cases. Therefore the resulting magnetic field strength is proportional to the Landé factor--specific to each spectral line.
 
