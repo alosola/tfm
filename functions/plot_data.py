@@ -3,9 +3,14 @@
 import matplotlib.pyplot as plt
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-def plot_data(data, title='', scale=None, norm=None, colourbar_label=None, colourmap='magma'):
+def plot_data(data, title='', scale=None, norm=None, colourbar_label=None, colourmap='magma', size='normal'):
     # Plot one frame of data
-    fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(8, 8))
+    if size=='small':
+        fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(4,4))
+    elif size=='large':
+        fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(8,8))
+    else:
+        fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(6,6))
     ax.set_xlabel('x [arcsec]')
     ax.set_ylabel('y [arcsec]')
     ax.set_title(title)
@@ -26,3 +31,10 @@ def plot_data(data, title='', scale=None, norm=None, colourbar_label=None, colou
     fig.colorbar(img, cax=cax, label=colourbar_label)
 
     return fig, ax, img
+
+
+# Colourmap cheat sheet:
+# - polarisation: gist_earth
+# - velocity: bwr
+# - intensity, temperature: magma
+# - Q, U, V:  'PuOr_r'(divnorm)
