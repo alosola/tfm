@@ -1,4 +1,3 @@
-#cell 0
 from pathlib import Path
 from scipy.signal import find_peaks
 import numpy as np
@@ -323,8 +322,26 @@ dlB[dlB > 0.3] = np.nan
 dlB[dlB < -0.3] = np.nan
 
 
-theta_SFA = [np.arctan((sw(Q.data_n[:,:,:line_cuttoff])**2 + sw(U.data_n[:,:,:line_cuttoff])**2)**0.5/sw(V.data_n[:,:,:line_cuttoff])),
-             np.arctan(sw(Q.data_n[:,:,line_cuttoff:]**2 + U.data_n[:,:,line_cuttoff:]**2)**0.25/sw(V.data_n[:,:,line_cuttoff:]))]
+theta_SFA = [np.arctan(sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)**0.25/sw(V.data_n[:,:,:line_cuttoff])),
+             np.arctan(sw(Q.data_n[:,:,line_cuttoff:]**2+U.data_n[:,:,line_cuttoff:]**2)**0.25/sw(V.data_n[:,:,line_cuttoff:]))]
+
+# theta_SFA = [sw(V.data_n[:,:,:line_cuttoff]**2),
+#              sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)]
+
+# A = np.copy(sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)**0.25 / sw(V.data_n[:,:,:line_cuttoff]**2))
+# B = np.copy(np.arctan(A))
+
+
+# num = sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)**0.25
+# den = sw(V.data_n[:,:,:line_cuttoff]**2)
+
+
+# num = (Q.data_n[:,:,25]**2+U.data_n[:,:,25]**2)**0.25
+# den = (V.data_n[:,:,25]**2)
+
+
+# theta_SFA = [num,
+#              den]
 
 
 # Set all negative values of theta to theta + pi
@@ -332,11 +349,20 @@ for theta_inst in theta_SFA:
     theta_inst[theta_inst < 0] += np.pi
 
 
-if True:
+# if True:
+#     for i in range(2):
+#         fig, _, _ = plot_data(theta_SFA[i], colourmap='grey', colourbar_label=r'Q sum **2')
+#         fig.savefig("generated/" + f"SFA_theta_{i}.png", dpi=200, bbox_inches='tight')
+#         print("Saved figure to file", f"generated/SFA_theta_{i}.png")
+#         fig.show()
+
+
+if PLOT_FIGURES:
     for i in range(2):
         fig, _, _ = plot_angle_gradient(theta_SFA[i], colourmap='PRGn_r', colourbar_label=r'$\theta$ [deg]')
         fig.savefig("generated/" + f"SFA_theta_{i}.png", dpi=200, bbox_inches='tight')
         print("Saved figure to file", f"generated/SFA_theta_{i}.png")
+        fig.show()
 
 
 phi_SFA = [0.5 * np.arctan(sw(U.data_n[:,:,:line_cuttoff]) / sw(Q.data_n[:,:,:line_cuttoff])),
@@ -365,15 +391,15 @@ if PLOT_FIGURES:
         print("Saved figure to file", f"generated/SFA_B_{i}.png")
 
 
-Bv_SFA = [B_SFA[0] * np.cos(theta_SFA[0]),
-          B_SFA[1] * np.cos(theta_SFA[1])]
+Bv_SFA = [B_SFA[0] * np.cos(theta[0]),
+          B_SFA[1] * np.cos(theta[1])]
 
 
-Bt_SFA = [B_SFA[0] * np.sin(theta_SFA[0]),
-          B_SFA[1] * np.sin(theta_SFA[1])]
+Bt_SFA = [B_SFA[0] * np.sin(theta[0]),
+          B_SFA[1] * np.sin(theta[1])]
 
 
-if True:
+if PLOT_FIGURES:
     for i in range(2):
         if i==0:
             divnorm=MidpointNormalize(vmin=-4000, vmax=4000, midpoint=0)
@@ -390,137 +416,5 @@ if True:
             divnorm=MidpointNormalize(vmin=50, vmax=3000, midpoint=0)
 
         fig, _, _ = plot_data(Bv_SFA[i], colourmap='berlin_r', norm=None, colourbar_label=r'$B$ [G]')
-        fig.savefig("generated/" + f"WFA_Bv_{i}.png", dpi=200, bbox_inches='tight')
+        fig.savefig("generated/" + f"SFA_Bv_{i}.png", dpi=200, bbox_inches='tight')
         print("Saved figure to file", f"generated/SFA_Bv_{i}.png")
-
-
-# #cell 37
-# Bv = np.moveaxis(Bv, 0, -1)
-# Bt = np.moveaxis(Bt, 0, -1)
-
-# #cell 38
-# # Constants
-# kB = 1.3806488e-16 # [erg K-1]
-# h = 6.6260755e-27  # [erg s]
-# c = 2.99792458e10  # [cm · s−1]
-# lambda0  = np.array([6301.51*1e-8, 6302.50*1e-8])   # Angstroms to cm
-# l = np.mean(lambda0)
-# Icont = I.data_n[:,:,:5].mean(axis=2) # I map in continuum
-# Teff = 5780 # [K] T quiet sun average
-# T = (1/Teff - kB*l/(h*c) * np.log(Icont))**-1
-# M = 55.845 # Fe atomic mass, [g mol-1]
-# av = 6.022e23 # avogadro, [mol-1]
-# m =  M/av
-# Xi = 0 # microturbulence, assumed 0
-
-
-# dlD = np.moveaxis(dlD, 0, -1)
-# np.shape(dlD)
-
-
-# #cell 39
-# # remove outliers
-# B_strong[B_strong > 5000] = np.nan
-# B_strong[B_strong < -5000] = np.nan
-
-# #cell 40
-# B = np.empty(Bv.shape)
-# B[:,:,:] = np.nan
-# B_mask = np.zeros(Bv.shape) * np.nan
-# # gamma = np.zeros(derived.weak.Bv.shape) * np.nan
-# # chi = np.zeros(derived.weak.Bv.shape) * np.nan
-
-# for i in range(I.data.shape[0]):
-#     for j in range(I.data.shape[1]):
-#         for k in range(0,2):
-#             if (dlB_binary[i,j,k] == 0) or np.isnan(dlB[i,j,k]) or (np.abs(dlB[i,j,k]) < np.abs(dlD[i,j,k])):
-#                 # If dlB could not be calculated, or if it is less than the doppler effect
-#                 B[i,j,k] = np.sqrt(Bv[i,j,k]**2 + Bt[i,j,k]**2)
-#                 B_mask[i,j,k] = 0
-#                 # chi[i,j,k] = derived.weak.chi[i,j,k]
-#                 # gamma[i,j,k] = derived.weak.gamma[i,j,k]
-#             else:
-#                 # Use strong field approximation otherwise
-#                 B[i,j,k] = B_strong[i,j,k]
-#                 B_mask[i,j,k] = 1
-#                 # chi[i,j,k] = derived.strong.chi[i,j,k]
-#                 # gamma[i,j,k] = derived.strong.gamma[i,j,k]
-
-# #cell 41
-# print(np.abs(dlD[300,300,0]))
-# print(np.abs(dlB[300,300,0]))
-
-# #cell 42
-# dlB_clean = np.copy(dlB[:,:,0])
-# dlB_clean[dlB_clean > 0.5] = np.nan
-# dlB_clean[dlB_clean < -0.5] = np.nan
-
-# #cell 43
-# plot_data(B[:,:,0], colourmap='bwr', title=r"B combined [G]")
-
-# #cell 44
-
-# divnorm=MidpointNormalize(vmin=-4000, vmax=4000, midpoint=0)
-# plot_data(B_strong, colourmap='berlin_r', title=r"B SFA [G]")
-# plot_data(np.abs(B_strong)*np.sin(gamma), norm=divnorm, colourmap='berlin_r', title=r"Bt SFA [G]")
-# plot_data(np.abs(B_strong)*np.cos(gamma), norm=divnorm, colourmap='berlin_r', title=r"Bv SFA [G]")
-
-# #cell 45
-# theta_SFA = 0.5 * np.arctan(sw.)
-
-# #cell 46
-# plot_data(dlB[:,:,0] > dlD[:,:,0], colourmap='grey')
-
-# #cell 47
-# # Plot Gaussian fits for a few example pixels
-# import matplotlib.pyplot as plt
-
-# example_pixels = [
-#     (300, 300),
-#     (118, 500),
-#     (113, 180),
-#     (538, 290),
-#     (354, 400),
-#     (428, 320)
-# ]
-
-# for (i, j) in example_pixels:
-#     spectrum = copy.copy(V.data_n[i, j, :])
-#     x_full = V.wave_array
-#     fig, axs = plt.subplots(1, 2, figsize=(12, 4))
-#     for line_idx, (start, end, label) in enumerate([(0, 60, 'Line 1'), (60, 112, 'Line 2')]):
-#         x = x_full[start:end]
-#         y = spectrum[start:end]
-#         axs[line_idx].plot(x, y, 'k.', label='Data')
-#         # Fit positive lobe
-#         if y.max() > margin * noise_level(spectrum[90:]):
-#             idx_p = np.argmax(y)
-#             window = 5
-#             fit_slice = slice(max(0, idx_p - window), min(len(x), idx_p + window + 1))
-#             try:
-#                 from scipy.optimize import curve_fit
-#                 popt, _ = curve_fit(gaussian, x[fit_slice], y[fit_slice],
-#                                     p0=[y[idx_p], x[idx_p], 0.1, np.median(y)])
-#                 axs[line_idx].plot(x[fit_slice], gaussian(x[fit_slice], *popt), 'r-', label='Gaussian fit (pos)')
-#                 axs[line_idx].axvline(popt[1], color='r', linestyle='--', label='Fit peak (pos)')
-#             except Exception:
-#                 axs[line_idx].axvline(x[idx_p], color='r', linestyle='--', label='Max (pos)')
-#         # Fit negative lobe
-#         if y.min() < -margin * noise_level(spectrum[90:]):
-#             idx_n = np.argmin(y)
-#             window = 5
-#             fit_slice = slice(max(0, idx_n - window), min(len(x), idx_n + window + 1))
-#             try:
-#                 popt, _ = curve_fit(gaussian, x[fit_slice], y[fit_slice],
-#                                     p0=[y[idx_n], x[idx_n], 0.1, np.median(y)])
-#                 axs[line_idx].plot(x[fit_slice], gaussian(x[fit_slice], *popt), 'b-', label='Gaussian fit (neg)')
-#                 axs[line_idx].axvline(popt[1], color='b', linestyle='--', label='Fit peak (neg)')
-#             except Exception:
-#                 axs[line_idx].axvline(x[idx_n], color='b', linestyle='--', label='Min (neg)')
-#         axs[line_idx].set_title(f'Pixel ({i},{j}) {label}')
-#         axs[line_idx].set_xlabel('Wavelength [Å]')
-#         axs[line_idx].set_ylabel('V')
-#         axs[line_idx].legend()
-#     plt.tight_layout()
-#     plt.show()
-
