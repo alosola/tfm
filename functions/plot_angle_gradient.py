@@ -4,11 +4,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-def plot_angle_gradient(data_radians, title='', colourmap='twilight', colourbar_label='Angle [degrees]', scale=''):
+def plot_angle_gradient(data_radians, title='', colourmap='twilight', colourbar_label='Angle [degrees]', scale='', size='normal'):
+    # Plot one frame of data
+    if size=='small':
+        fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(4,4))
+    elif size=='large':
+        fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(8,8))
+    else:
+        fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(6,6))
+
     # Plot angle with cyclic colormap
     fig, ax = plt.subplots(ncols=1, nrows=1, figsize=(8, 8))
-    ax.set_xlabel('X axis (array index)')
-    ax.set_ylabel('Y axis (array index)')
+    ax.set_xlabel('x [arcsec]')
+    ax.set_ylabel('y [arcsec]')
     ax.set_title(title)
 
     # plate_scale_x = 0.14857 # arcseconds per pixel
@@ -24,6 +32,5 @@ def plot_angle_gradient(data_radians, title='', colourmap='twilight', colourbar_
     divider = make_axes_locatable(ax)
     cax = divider.append_axes("right", size="5%", pad=0.05)
     fig.colorbar(img, cax=cax, label=colourbar_label)
-    plt.show()
 
-    return fig, ax
+    return fig, ax, img

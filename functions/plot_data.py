@@ -37,4 +37,6 @@ def plot_data(data, title='', scale=None, norm=None, colourbar_label=None, colou
 # - polarisation: gist_earth
 # - velocity: bwr
 # - intensity, temperature: magma
-# - Q, U, V:  'PuOr_r'(divnorm)
+# - Q, U, V:  'PuOr_r' (divnorm)
+# - magnetic field: berlin_r (divnorm)
+# - spectral deltas: managua
