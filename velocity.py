@@ -106,7 +106,7 @@ else:
 
 if True:
     for k in range(2):
-        fig, _, _ = plot_data(dl[:,:,k], colourbar_label=r"$\Delta \lambda v$  [$\mathrm{\AA}$]", colourmap='bwr')#, norm=MidPointNorm(0))#, scale=[-0.08, 0.08])
+        fig, _, _ = plot_data(dl[:,:,k], colourbar_label=r"$\Delta \lambda v$  [$\mathrm{\AA}$]", colourmap='bwr', norm=MidPointNorm(0))#, scale=[-0.08, 0.08])
         fig.savefig("generated/" + f"delta_lambda_v_{k}.png", dpi=200, bbox_inches='tight')
         print("Saved figure to file", f"generated/delta_lambda_v_{k}.png")
 
@@ -166,7 +166,7 @@ print(f'Mean fit quality in quiet sun: {fit_quiet_mean} RMSE')
 
 if True:
     for k in range(2):
-        fig, _, _ = plot_data(v[k] - v_quiet_mean[k], colourbar_label=r"$v_{los}$  [km/s]", colourmap='bwr')#, norm=MidPointNorm(0))#, scale=[-0.08, 0.08])
+        fig, _, _ = plot_data(v[k] - v_quiet_mean[k], colourbar_label=r"$v_{los}$  [km/s]", colourmap='bwr', norm=MidPointNorm(0))#, scale=[-0.08, 0.08])
         fig.savefig("generated/" + f"vlos_norm_{k}.png", dpi=200, bbox_inches='tight')
         print("Saved figure to file", f"generated/vlos_norm_{k}.png")
 
