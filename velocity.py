@@ -95,13 +95,11 @@ if (recalculate):
         pickle.dump(fit_quality, f)
     with open('generated/objects/dl.pickle', 'wb') as f:
         pickle.dump(dl, f)
-    with open('generated/objects/velocity.pickle', 'wb') as f:
-        pickle.dump(v, f)
     print('Saved min_x_array, fit_quality, velocity, and dl to generated/* as pickle files')
 
 
 else:
-    v = pickle.load(open('generated/objects/velocity.pickle', "rb"))
+    # v = pickle.load(open('generated/objects/velocity.pickle', "rb"))
     dl = pickle.load(open('generated/objects/dl.pickle', "rb"))
     fit_quality = pickle.load(open('generated/objects/fit_quality.pickle', "rb"))
     min_x_array = pickle.load(open('generated/objects/min_x_array.pickle', "rb"))
@@ -383,12 +381,4 @@ for i in range(0, shape[0]):
 #                 plt.title(f'Pixel ({i},{j})\nFit min: {min_x:.4f}, V: {v1 -v_quiet_mean}')
 #                 plt.show()
 
-
-#cell 21
-# Rebecca Centeno, equation 3
-v = c * dl[:,:,0] / lambda0[0]
-
-fig,ax,img = plot_data(v-v_quiet_mean, colourbar_label=f"Velocity [km/s]", colourmap='bwr', scale=[-2, 2])
-ax.set_xlim([25, 60])
-ax.set_ylim([55, 77])
 
