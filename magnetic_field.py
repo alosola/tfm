@@ -156,7 +156,10 @@ for k in range(2):
 if (False):
     dlB = np.zeros(I.data.shape)[:,:,:2].astype(float)
     dlB_binary = np.zeros(I.data.shape)[:,:,:2].astype(float)
-    margin = 3.5
+    AQ = np.zeros(I.data.shape)[:,:,:2].astype(float)
+    AU = np.zeros(I.data.shape)[:,:,:2].astype(float)
+    AV = np.zeros(I.data.shape)[:,:,:2].astype(float)
+    margin = 4
     verbose = 0
 
     for i in range(0, np.shape(V.data_n)[0]):
@@ -191,52 +194,68 @@ if (False):
 
             if (verbose):
                 print(f'Peak positions: {peaks_p}, {peaks_n}')
+                plt.figure()
 
             # If two peaks have been found for the first line, calculate dlB
-            if peaks_p[0] is not None and peaks_n[0] is not None:
-                dlB_binary[i, j, 0] = 1
-                dlB[i, j, 0] = np.array(V.wave_array)[peaks_p[0]] - np.array(V.wave_array)[peaks_n[0]]
+            for k in range(2):
+                if peaks_p[k] is not None and peaks_n[k] is not None:
+                    dlB_binary[i, j, k] = 1
+                    dlB[i, j, k] = np.array(V.wave_array)[peaks_p[k]] - np.array(V.wave_array)[peaks_n[k]]
+                    midpoint_index = int((peaks_p[k] + peaks_n[k]) / 2)
+                    AV[i, j, k] = np.abs(spectrum[peaks_p[k]])
+                    AQ[i, j, k] = np.abs(Q.data_n[i, j, midpoint_index] - np.mean([Q.data_n[i, j, peaks_n[k]], Q.data_n[i, j, peaks_p[k]]]))
+                    AU[i, j, k] = np.abs(U.data_n[i, j, midpoint_index] - np.mean([U.data_n[i, j, peaks_n[k]], U.data_n[i, j, peaks_p[k]]]))
 
-                if (verbose):
-                    plt.figure()
-                    plt.vlines(V.wave_array[peaks_n[0]], ymin=np.min(spectrum), ymax=np.max(spectrum), color='g', linestyle='--')
-                    plt.vlines(V.wave_array[peaks_p[0]], ymin=np.min(spectrum), ymax=np.max(spectrum), color='purple', linestyle='--')
+                    if (verbose):
+                        plt.title(f'Pixel {i},{j}, line {k+1}, dlB = {dlB[i, j, k]:.4f} Å, AQ = {AQ[i, j, k]:.4f}, AU = {AU[i, j, k]:.4f}')
+                        # plt.axvline(V.wave_array[peaks_n[k]], color='g', linestyle='--')
+                        # plt.axvline(V.wave_array[peaks_p[k]], color='g', linestyle='--')
+                        # plt.axvline(V.wave_array[midpoint_index], color='purple', linestyle='--')
+                        # plt.axhline(np.min(U.data_n[i, j, midpoint_index-1:midpoint_index+1]), color='red', linestyle='--')
+                        # plt.axhline(np.min(U.data_n[i, j, midpoint_index-1:midpoint_index+1])+AU[i, j, k], color='red', linestyle='--')
+                        plt.axhline(np.min(Q.data_n[i, j, midpoint_index-1:midpoint_index+1]), color='red', linestyle='--')
+                        plt.axhline(np.min(Q.data_n[i, j, midpoint_index-1:midpoint_index+1])+AQ[i, j, k], color='red', linestyle='--')
+                        # plt.axhline(AU[i, j, k], color='green', linestyle='--')
+                else:
+                    dlB[i, j, k] = np.nan
 
-                    print(f'Peak 1 positive: {V.wave_array[peaks_p[0]]}')
-                    print(f'Peak 1 negative: {V.wave_array[peaks_n[0]]}')
-                    print(np.array(V.wave_array)[peaks_p[0]] - np.array(V.wave_array)[peaks_n[0]])
-                    print(f'Distance: {dlB[i, j, 0]:.6f} Angstrom')
-            else:
-                dlB[i, j, 0] = np.nan
-
-
-            # If two peaks have been found for the second line, calculate dlB
-            if peaks_p[1] is not None and peaks_n[1] is not None:
-                dlB_binary[i, j, 1] = 1
-                dlB[i, j, 1] = np.array(V.wave_array)[peaks_p[1]] - np.array(V.wave_array)[peaks_n[1]]
-
-                if (verbose):
-                    plt.figure()
-                    plt.vlines(V.wave_array[peaks_n[1]], ymin=np.min(spectrum), ymax=np.max(spectrum), color='g', linestyle='--')
-                    plt.vlines(V.wave_array[peaks_p[1]], ymin=np.min(spectrum), ymax=np.max(spectrum), color='purple', linestyle='--')
-
-                    print(f'Peak 2 positive: {V.wave_array[peaks_p[1]]}')
-                    print(f'Peak 2 negative: {V.wave_array[peaks_n[1]]}')
-                    print(np.array(V.wave_array)[peaks_p[1]] - np.array(V.wave_array)[peaks_n[1]])
-                    print(f'Distance: {dlB[i, j, 1]:.6f} Angstrom')
-            else:
-                dlB[i, j, 1] = np.nan
 
             if (verbose):
-                plt.hlines(margin*sd, V.wave_array[0], V.wave_array[-1], color='red', linestyle='--')
-                plt.hlines(-margin*sd, V.wave_array[0], V.wave_array[-1], color='red', linestyle='--')
+                # plt.hlines(margin*sd, V.wave_array[0], V.wave_array[-1], color='red', linestyle='--')
+                # plt.hlines(-margin*sd, V.wave_array[0], V.wave_array[-1], color='red', linestyle='--')
                 plt.plot(V.wave_array, spectrum, linestyle='-', color='black')
+                # plt.plot(U.wave_array, U.data_n[i, j, :], linestyle='-', color='grey')
+                plt.plot(Q.wave_array, Q.data_n[i, j, :], linestyle='-', color='grey')
 
     with open('generated/objects/dlB.pickle', 'wb') as f:
         pickle.dump(dlB, f)
+    with open('generated/objects/AQ.pickle', 'wb') as f:
+        pickle.dump(AQ, f)
+    with open('generated/objects/AU.pickle', 'wb') as f:
+        pickle.dump(AU, f)
+    with open('generated/objects/AV.pickle', 'wb') as f:
+        pickle.dump(AV, f)
 else:
-    dlB = -pickle.load(open('generated/objects/dlB.pickle', "rb"))
+    dlB = pickle.load(open('generated/objects/dlB.pickle', "rb"))
+    AQ = pickle.load(open('generated/objects/AQ.pickle', "rb"))
+    AU = pickle.load(open('generated/objects/AU.pickle', "rb"))
+    AV = pickle.load(open('generated/objects/AV.pickle', "rb"))
 
+dlB = -dlB # Make dlB positive
+
+if PLOT_FIGURES:
+    for i in range(2):
+        fig, _, _ = plot_data(AQ[:,:,i], colourbar_label=r'$A_Q$ [$\AA$]')
+        fig.savefig("generated/" + f"AQ_{i}.png", dpi=200, bbox_inches='tight')
+        print("Saved figure to file", f"generated/AQ_{i}.png")
+
+        fig, _, _ = plot_data(AU[:,:,i], colourbar_label=r'$A_U$ [$\AA$]')
+        fig.savefig("generated/" + f"AU_{i}.png", dpi=200, bbox_inches='tight')
+        print("Saved figure to file", f"generated/AU_{i}.png")
+
+        fig, _, _ = plot_data(AV[:,:,i], colourbar_label=r'$A_V$ [$\AA$]')
+        fig.savefig("generated/" + f"AV_{i}.png", dpi=200, bbox_inches='tight')
+        print("Saved figure to file", f"generated/AV_{i}.png")
 
 # Select pixels of interest
 verbose=1
@@ -322,39 +341,19 @@ dlB[dlB > 0.3] = np.nan
 dlB[dlB < -0.3] = np.nan
 
 
-theta_SFA = [np.arctan(sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)**0.25/sw(V.data_n[:,:,:line_cuttoff])),
-             np.arctan(sw(Q.data_n[:,:,line_cuttoff:]**2+U.data_n[:,:,line_cuttoff:]**2)**0.25/sw(V.data_n[:,:,line_cuttoff:]))]
-
-# theta_SFA = [sw(V.data_n[:,:,:line_cuttoff]**2),
-#              sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)]
-
-# A = np.copy(sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)**0.25 / sw(V.data_n[:,:,:line_cuttoff]**2))
-# B = np.copy(np.arctan(A))
+theta_SFA = [np.arctan((AQ[:,:,0]**2+AU[:,:,0]**2)**0.25/AV[:,:,0]),
+             np.arctan((AQ[:,:,1]**2+AU[:,:,1]**2)**0.25/AV[:,:,1])]
 
 
-# num = sw(Q.data_n[:,:,:line_cuttoff]**2+U.data_n[:,:,:line_cuttoff]**2)**0.25
-# den = sw(V.data_n[:,:,:line_cuttoff]**2)
 
-
-# num = (Q.data_n[:,:,25]**2+U.data_n[:,:,25]**2)**0.25
-# den = (V.data_n[:,:,25]**2)
-
-
-# theta_SFA = [num,
-#              den]
-
-
-# Set all negative values of theta to theta + pi
-for theta_inst in theta_SFA:
-    theta_inst[theta_inst < 0] += np.pi
-
-
-# if True:
-#     for i in range(2):
-#         fig, _, _ = plot_data(theta_SFA[i], colourmap='grey', colourbar_label=r'Q sum **2')
-#         fig.savefig("generated/" + f"SFA_theta_{i}.png", dpi=200, bbox_inches='tight')
-#         print("Saved figure to file", f"generated/SFA_theta_{i}.png")
-#         fig.show()
+# Set sign of theta from sign of dlB
+for k in range(2):
+    for i in range(0, shape[0]):
+        for j in range(0, shape[1]):
+            if dlB[i,j,k] < 0:
+                theta_SFA[k][i,j] = np.pi - theta_SFA[k][i,j]
+            if AV[i,j,k] == 0:
+                theta_SFA[k][i,j] = np.nan
 
 
 if PLOT_FIGURES:
@@ -362,17 +361,17 @@ if PLOT_FIGURES:
         fig, _, _ = plot_angle_gradient(theta_SFA[i], colourmap='PRGn_r', colourbar_label=r'$\theta$ [deg]')
         fig.savefig("generated/" + f"SFA_theta_{i}.png", dpi=200, bbox_inches='tight')
         print("Saved figure to file", f"generated/SFA_theta_{i}.png")
-        fig.show()
 
 
-phi_SFA = [0.5 * np.arctan(sw(U.data_n[:,:,:line_cuttoff]) / sw(Q.data_n[:,:,:line_cuttoff])),
-           0.5 * np.arctan(sw(U.data_n[:,:,line_cuttoff:]) / sw(Q.data_n[:,:,line_cuttoff:]))]
+
+phi_SFA = [0.5 * np.arctan(AU[:,:,0] / AQ[:,:,0]),
+           0.5 * np.arctan(AU[:,:,1] / AQ[:,:,1])]
 
 if PLOT_FIGURES:
     for i in range(2):
         fig, _, _ = plot_angle_gradient(phi_SFA[i], colourbar_label=r'$\phi$ [deg]')
         fig.savefig("generated/" + f"SFA_phi_{i}.png", dpi=200, bbox_inches='tight')
-        print("Saved figure to file", f"generated/SFA_phi_{k}.png")
+        print("Saved figure to file", f"generated/SFA_phi_{i}.png")
 
 
 B_SFA = [dlB[:,:,0] / (2 * C * np.array(lambda0[0])**2 * np.array(gbar[0])),
@@ -391,12 +390,12 @@ if PLOT_FIGURES:
         print("Saved figure to file", f"generated/SFA_B_{i}.png")
 
 
-Bv_SFA = [B_SFA[0] * np.cos(theta[0]),
-          B_SFA[1] * np.cos(theta[1])]
+Bv_SFA = [B_SFA[0] * np.cos(theta_SFA[0]),
+          B_SFA[1] * np.cos(theta_SFA[1])]
 
 
-Bt_SFA = [B_SFA[0] * np.sin(theta[0]),
-          B_SFA[1] * np.sin(theta[1])]
+Bt_SFA = [B_SFA[0] * np.sin(theta_SFA[0]),
+          B_SFA[1] * np.sin(theta_SFA[1])]
 
 
 if PLOT_FIGURES:
@@ -418,3 +417,43 @@ if PLOT_FIGURES:
         fig, _, _ = plot_data(Bv_SFA[i], colourmap='berlin_r', norm=None, colourbar_label=r'$B$ [G]')
         fig.savefig("generated/" + f"SFA_Bv_{i}.png", dpi=200, bbox_inches='tight')
         print("Saved figure to file", f"generated/SFA_Bv_{i}.png")
+
+
+
+# Combine the results from both methods, depending on the criteria for each pixel
+B_combine = np.abs(B_SFA)
+theta_combine = np.copy(theta_SFA)
+phi_combine = np.copy(phi_SFA)
+
+for k in range(2):
+    for i in range(0, shape[0]):
+        for j in range(0, shape[1]):
+            if np.isnan(dlB[i,j,k]):
+                phi_combine[k][i,j] = phi[k][i,j]
+                theta_combine[k][i,j] = theta[k][i,j]
+                B_combine[k][i,j] = B_WFA[k][i,j]
+
+
+
+
+if True:
+    for i in range(2):
+        if i==0:
+            divnorm=MidpointNormalize(vmin=50, vmax=4500, midpoint=0)
+        elif i==1:
+            divnorm=MidpointNormalize(vmin=50, vmax=3000, midpoint=0)
+
+        fig, _, _ = plot_data(B_combine[i], colourmap='berlin_r', norm=divnorm, colourbar_label=r'$B$ [G]')
+        fig.savefig("generated/" + f"B_combine_{i}.png", dpi=200, bbox_inches='tight')
+        print("Saved figure to file", f"generated/B_combine_{i}.png")
+
+
+
+        fig, _, _ = plot_angle_gradient(theta_combine[i], colourmap='PRGn_r', colourbar_label=r'$\theta$ [deg]')
+        fig.savefig("generated/" + f"theta_combine_{i}.png", dpi=200, bbox_inches='tight')
+        print("Saved figure to file", f"generated/theta_combine_{i}.png")
+
+
+        fig, _, _ = plot_angle_gradient(phi_combine[i], colourbar_label=r'$\phi$ [deg]')
+        fig.savefig("generated/" + f"phi_combine_{i}.png", dpi=200, bbox_inches='tight')
+        print("Saved figure to file", f"generated/phi_combine_{i}.png")
